@@ -1,0 +1,5 @@
+{
+  "integrity": "",
+  "strip_prefix": "{REPO}-root-{VERSION}",
+  "url": "https://github.com/{OWNER}/{REPO}/releases/download/{TAG}/{REPO}-root-{TAG}.tar.gz"
+}
