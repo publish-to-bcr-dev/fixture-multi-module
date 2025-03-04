@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'tag_name'
+        required: true
+        type: string
+      registry:
+        description: 'bazel central registry target'
+        required: false
+        default: 'fweikert/bazel-central-registry'
+        type: string
+      registry-fork:
+        description: ''
+        required: true
+        default: publish-to-bcr-dev/bazel-central-registry
+        type: string
+
+permissions:
+  id-token: write
+  attestations: write
+  contents: write
+
+jobs:
+  publish:
+    uses: publish-to-bcr-dev/.github/.github/workflows/publish.yaml@308001c65fcd4b7bb0742d452404d5ad3843c988
+    with:
+      tag_name: ${{ inputs.tag_name }}
+      registry: ${{ inputs.registry }}
+      registry_fork: ${{ inputs.registry-fork }}
+      registry: fweikert/bazel-central-registry
+
+    secrets:
+      publish_token: ${{ secrets.PUBLISH_TOKEN }}
