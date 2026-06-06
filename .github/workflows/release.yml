@@ -15,7 +15,24 @@ permissions:
 
 jobs:
   release:
-    uses: publish-to-bcr-dev/.github/.github/workflows/release_ruleset.yaml@308001c65fcd4b7bb0742d452404d5ad3843c988
+    uses: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v7.6.0
     with:
+      tag_name: ${{ github.ref_name }}
+      draft: true
       release_files: |
         fixture-multi-module-*.tar.gz
+  publish:
+    needs: release
+    uses: ./.github/workflows/publish.yaml
+    with:
+      tag_name: ${{ github.ref_name }}
+    secrets:
+      publish_token: ${{ secrets.publish_token || secrets.BCR_PUBLISH_TOKEN }}
+  finalize:
+    # Publish the draft release
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        with:
+          tag_name: ${{ github.ref_name }}
