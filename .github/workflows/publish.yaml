@@ -25,10 +25,12 @@ permissions:
 
 jobs:
   publish:
-    uses: publish-to-bcr-dev/.github/.github/workflows/publish.yaml@308001c65fcd4b7bb0742d452404d5ad3843c988
+    uses: publish-to-bcr-dev/.github/.github/workflows/publish.yaml@34e1658566732f77d1e924bff8453d620dbdada9
     with:
       tag_name: ${{ inputs.tag_name }}
       registry: ${{ inputs.registry }}
       registry_fork: ${{ inputs.registry-fork }}
+      open_pull_request: false
+      attest: true
     secrets:
       publish_token: ${{ secrets.PUBLISH_TOKEN }}
