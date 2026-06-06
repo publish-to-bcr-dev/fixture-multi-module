@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   release:
-    uses: publish-to-bcr-dev/.github/.github/workflows/release_ruleset.yaml@308001c65fcd4b7bb0742d452404d5ad3843c988
+    uses: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v7.6.0
     with:
       release_files: |
         fixture-multi-module-*.tar.gz
